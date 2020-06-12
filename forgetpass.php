@@ -36,17 +36,24 @@ session_start();
 $_SESSION["ID"] = " ";
 $conn = mysqli_connect("localhost", "root", "", "swp1") or die("Connection Error: " . mysqli_error($conn));
 
-if(isset($_POST['Supmit']))
+if(isset($_POST['submit']))
 {
-if (count($_POST) > 0) {
-    $result = mysqli_query($conn, "SELECT *from Login WHERE ID='" . $_SESSION["ID"] . "'");
-    $row = mysqli_fetch_array($result);
-    if ($_POST["currentPassword"] == $row["password"]) {
-        mysqli_query($conn, " UPDATE Login set Password='" . $_POST["newPassword"] . "' WHERE ID='" . $_SESSION["ID"] . "'");
-        $message = "Password Changed";
+	//aprint_r($_POST);
+	$userId = $_GET['id'];
+	//echo $userId;
+    if ($_POST["password"] == $_POST["confirmPassword"]) {
+		//UPDATE `user` SET `Password` = 'nora1234' WHERE `user`.`ID` = '1'; 
+		$sql = "UPDATE `user` set `Password`='" . $_POST["password"] . "' WHERE `ID`='" . $userId . "'";
+        mysqli_query($conn, $sql);
+		//echo $sql;
+		 header("Location:login.php");
+       
     } else
-        $message = "Current Password is not correct";
-}}
+       	echo "<script>alert('Password and Confirm Password not the same !');
+		 </script>";
+
+
+}
 ?>
 
 <html>
@@ -244,14 +251,16 @@ font-size:24px;
 <br>
 <h1> If you forget your passwrod, you can reset it..</h1>
 <div  id="form"  class="form" >
+ <form action ="" method ="post">
                Enter here your new password:<br>
-                 <input type="password" id="newPassword" name="password" placeholder="New Password">
+                 <input type="password" id="newPassword" name="password" placeholder="New Password"> 
 				 <br>
 				 <br>
 				 <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Passwrod">
                   <br>
                    <br><br>
-                      <input type="Submit" onclick="validatePassword()" value="Submit">
+                      <input type="submit" onclick="validatePassword()" name ="submit" value="submit">
+					   <form action ="pending.php" method ="post">
                 
 				</div>
 				
