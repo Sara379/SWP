@@ -33,18 +33,20 @@ return output;
 </script>
 <?php
 session_start();
-$_SESSION["ID"] = "9";
+$_SESSION["ID"] = " ";
 $conn = mysqli_connect("localhost", "root", "", "swp1") or die("Connection Error: " . mysqli_error($conn));
 
+if(isset($_POST['Supmit']))
+{
 if (count($_POST) > 0) {
-    $result = mysqli_query($conn, "SELECT *from login WHERE ID='" . $_SESSION["ID"] . "'");
+    $result = mysqli_query($conn, "SELECT *from Login WHERE ID='" . $_SESSION["ID"] . "'");
     $row = mysqli_fetch_array($result);
     if ($_POST["currentPassword"] == $row["password"]) {
-        mysqli_query($conn, "UPDATE login set password='" . $_POST["newPassword"] . "' WHERE ID='" . $_SESSION["ID"] . "'");
+        mysqli_query($conn, " UPDATE Login set Password='" . $_POST["newPassword"] . "' WHERE ID='" . $_SESSION["ID"] . "'");
         $message = "Password Changed";
     } else
         $message = "Current Password is not correct";
-}
+}}
 ?>
 
 <html>
@@ -208,7 +210,7 @@ font-size:24px;
     <a href="#home" class="w3-bar-item w3-button w3-wide">Derma Clinic</a>
     <div class="w3-right w3-hide-small">
       <a href="#Schedule" class="w3-bar-item w3-button"><i class="fa fa-th"></i> Schedule</a>
-      <a href="ContactUs.php" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> Logout</a>
+      <a href="clinic.php" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> Logout</a>
     </div>
 
 
@@ -243,13 +245,13 @@ font-size:24px;
 <h1> If you forget your passwrod, you can reset it..</h1>
 <div  id="form"  class="form" >
                Enter here your new password:<br>
-                 <input type="text" id="newPassword" name="password" placeholder="New Password">
+                 <input type="password" id="newPassword" name="password" placeholder="New Password">
 				 <br>
 				 <br>
-				 <input type="text" id="confirmPassword" name="confirmPassword" placeholder="Confirm Passwrod">
+				 <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Passwrod">
                   <br>
                    <br><br>
-                      <input type="submit" onclick="validatePassword()" value="Submit">
+                      <input type="Submit" onclick="validatePassword()" value="Submit">
                 
 				</div>
 				
