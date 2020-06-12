@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 $servername = "localhost";
@@ -10,15 +11,16 @@ if (isset($_POST['Submit'])) {
 
 //print_r($_POST);
 
-    if
-   (empty($_POST['Name'])
+
+    if(empty($_POST['ID'])
+    ||empty($_POST['Name'])
 		||empty($_POST['Age'])
 	||empty($_POST['Mobile'])
     ||empty($_POST['Address'])
     ||empty($_POST['Email'])
 	||empty($_POST['Drname'])
-    ||empty($_POST['LastVisits'])
-    ||empty($_POST['Day']))
+    ||empty($_POST['LastVisit'])
+    ||empty($_POST['Case']))
 
 
 	{
@@ -29,18 +31,18 @@ if (isset($_POST['Submit'])) {
 
     
     
-		$sql="INSERT INTO `pending` ( `Name`, `Age`, `Mobile`, `Address`, `Email`, `Drname`, `LastVisit`, `Day`)
+		$sql="INSERT INTO `patient` (`ID`, `Name`, `Age`, `Mobile`, `Address`, `Email`, `Drname`, `LastVisit`, `Case`)
 		values
 		(
-       
+        '".$_POST["ID"]."' ,
 		'".$_POST["Name"]."' ,
 		'".$_POST["Age"]."' ,
 		'".$_POST["Mobile"]."' ,
 		'".$_POST["Address"]."' ,
         '".$_POST["Email"]."' ,
         '".$_POST["Drname"]."' ,
-        '".$_POST["LastVisits"]."' ,
-		'".$_POST["Day"]."'
+        '".$_POST["LastVisit"]."' ,
+		'".$_POST["Case"]."'
 		)";
 		
 		// $sql;
@@ -96,10 +98,10 @@ if($_SERVER['REQUEST_METHOD']=='POST')
 }
 	
 ?>
- 
+
 <!DOCTYPE html>
 <html>
-<title>Register</title>
+<title>Add patient </title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -109,7 +111,7 @@ if($_SERVER['REQUEST_METHOD']=='POST')
 
 <style>
 
-input[type=submit] {
+input[type=Submit] {
   width: 40%;
   background-color: #4CAF50;
   color: white;
@@ -127,14 +129,14 @@ input[type=submit] {
 }
 #btn{
 	width: 50%;
-	
 	margin-left:650px;
 }
 body {
-  background-image: url('clin.jpg');
+  background-image: url('addpatient.jpg');
   background-attachment: fixed;
   background-repeat: no-repeat;
     background-size: cover;
+
 }
 
 input[type=submit]:hover {
@@ -155,72 +157,55 @@ input[type=submit]:hover {
 </div>
 </div>
 <hr>
-            <h1 style="color:maroon; text-align: center;">Register</h1>
+            <h1 style="color:maroon; text-align: center;">Add Patient</h1>
 
 <body>
 <br>
-<form action ="Register.php" method ="post">
-
-<h4  style="font-family:time new roman;margin-left:650px;margin-top:20px;">	Name: </h4>
+<form action ="actionpage.php" method ="post">
+  
+    <h3 >Enter here Patient information please..</h3>
+	<h4  style="font-family:time new roman;margin-left:650px;margin-top:20px;">	ID </h4>
+			<input id="css" class="form-control" type="text" name="ID" >
+				<br>
+                <h4  style="font-family:time new roman;margin-left:650px;margin-top:20px;">	Name: </h4>
 			<input id="css" class="form-control" type="text" name="Name" >
 				<br>
-	<h4  style="font-family:time new roman;margin-left:650px;margin-top:20px;">	Age: </h4>
+                <h4  style="font-family:time new roman;margin-left:650px;margin-top:20px;">	Age: </h4>
 			<input id="css" class="form-control" type="number" name="Age" >
 				<br>
-	<h4  style="font-family:time new roman;margin-left:650px;margin-top:20px;"> Mobile: </h4>
+                <h4  style="font-family:time new roman;margin-left:650px;margin-top:20px;">	Mobile: </h4>
 			<input id="css" class="form-control" type="text" name="Mobile" >
+				<br>>
+                <h4  style="font-family:time new roman;margin-left:650px;margin-top:20px;">	Address: </h4>
+			<input id="css" class="form-control" type="text" name="Address" >
+				<br>>
+                <h4  style="font-family:time new roman;margin-left:650px;margin-top:20px;">	Email: </h4>
+			<input id="css" class="form-control" type="email" name="Email" >
 				<br>
-	<h4  style="font-family:time new roman;margin-left:650px;margin-top:20px;">	Address	:  </h4>
-			<input id="css" class="form-control"type="text" name="Address" >
-                <br>
-				<h4  style="font-family:time new roman;margin-left:650px;margin-top:20px;">	Email	:  </h4>
-			<input id="css" class="form-control"type="email" name="Email" >
-                <br>
                 <h4  style="font-family:time new roman;margin-left:650px;margin-top:20px;">	Doctor :  
 <select name="Drname">
 			<?php
-				$Dr=array('Rania', 'Shareen');
-				for($i=0;$i<count($Dr);$i++)
+				$Drname=array('Rania', 'Shareen');
+				for($i=0;$i<count($Drname);$i++)
 				{
-					echo"<option>".$Dr[$i]."<option>";
+					echo"<option>".$Drname[$i]."<option>";
 				}
 			?>
 			</select>
 			</h4>
+            
+                <h4  style="font-family:time new roman;margin-left:650px;margin-top:20px;">	LastVisit: </h4>
+			<input id="css" class="form-control" type="date" name="LastVisit" >
+            <h4  style="font-family:time new roman;margin-left:650px;margin-top:20px;">	Case: </h4>
+			<input id="css" class="form-control" type="text" name="Case" >
+				<br>
 <br>
-<h4  style="font-family:time new roman;margin-left:650px;margin-top:20px;">	LastVisit	:  </h4>
-			<input id="css" class="form-control"type="date" name="LastVisits" >
-                <br>
+    <br>
+    <input  style="font-family:time new roman;margin-left:650px;margin-top:20px;" type="submit" value="Submit" name="Submit">
 
-	<h4  style="font-family:time new roman;margin-left:650px;margin-top:20px;">	Day of Reservation : 
-	<select name="Day">
-			<?php
-				$Day=array('Saturday', 'Sunday', 'Monday','Tuesday', 'Wednesday', 'Thursday','Friday');
-				for($i=0;$i<count($Day);$i++)
-				{
-					echo"<option>".$Day[$i]."<option>";
-				}
-			?>
-			</select>
-			</h4>
-<br>
-
-  <input  style="font-family:time new roman;margin-left:650px;margin-top:20px;" type="submit" value="Submit" name="Submit">
-    
-
+  </form>
+  
 </div>
-</form>
 
 
-<div class="w3-display-bottomleft w3-text-grey w3-large" style="padding:24px 48px">
-            <i class="fa fa-facebook-official w3-hover-opacity"></i>
-            <i class="fa fa-instagram w3-hover-opacity"></i>
-            <i class="fa fa-snapchat w3-hover-opacity"></i>
-            <i class="fa fa-pinterest-p w3-hover-opacity"></i>
-            <i class="fa fa-twitter w3-hover-opacity"></i>
-            <i class="fa fa-linkedin w3-hover-opacity"></i>
-        </div>
 
-
-</body>
-</html>
